@@ -10,16 +10,16 @@ BIN_DIR="${DIR}/target"
 DATA_DIR="${DIR}/resources"
 LIB_DIR="${DIR}/lib"
 
+#
 # Tests
 #
-# The functions that test certain functionality.
-
 source $LIB_DIR/testbase.sh
 
+#
 # Test Runner
 #
-# Runs the tests.
 (
+    rm -rf $BIN_DIR
     mkdir -p $BIN_DIR
     (
       RESULT=$(install)

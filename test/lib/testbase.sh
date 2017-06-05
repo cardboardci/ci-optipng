@@ -18,7 +18,7 @@ function install()
 
 function simple_png()
 {
-    optipng $DATA_DIR/test.png
+    optipng $DATA_DIR/test.png --out $BIN_DIR/test.png >/dev/null 2>&1
 }
 
 # Framework
