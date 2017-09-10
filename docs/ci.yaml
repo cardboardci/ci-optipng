@@ -1,0 +1,7 @@
+build:
+  image: jrbeverly/optipng:baseimage
+  script:
+    - optipng test.png
+  artifacts:
+    paths:
+      - test.png
