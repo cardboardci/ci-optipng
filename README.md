@@ -2,16 +2,16 @@
 
 ## Summary
 
-A super small image with [X Window System](https://www.x.org/wiki/) development libraries installed. The project icon is from [cre.ativo mustard, HK from the Noun Project](docs/icon/README.md).
+A super small Alpine image with OptiPNG installed. The project icon is from [cre.ativo mustard, HK from the Noun Project](docs/icon/icon.json)
 
 **NOTE: This image is marked EOL, and use is discouraged.**
 
 ## Usage
 
-You can use this image locally with `docker run`, calling `g++` to build X Window System applications:
+You can use this image locally with `docker run`, calling as such:
 
 ```bash
-docker run -v /media/:/media/ jrbeverly/xwindow:privileged g++ myxapp.cpp -o xapp
+docker run -v $(pwd):/media/ jrbeverly/optipng:baseimage optipng test.png
 ```
 
 ### Gitlab
@@ -19,23 +19,14 @@ docker run -v /media/:/media/ jrbeverly/xwindow:privileged g++ myxapp.cpp -o xap
 You can setup a build job using `.gitlab-ci.yml`:
 
 ```yaml
-compile:
-  image: jrbeverly/xwindow:baseimage
+compile_pdf:
+  image: jrbeverly/optipng:baseimage
   script:
-    - g++ myxapp.cpp -o xapp
+    - optipng test.png
   artifacts:
     paths:
-      - xapp
+      - test.png
 ```
-
-## Image Tags
-
-Build tags available with the image: `jrbeverly/xwindow`.
-
-| Tag | Status | Description |
-| --- | ------ | ----------- |
-| [![Version base][base-badge]][base-link] | [![Image base][base-image-badge]][base-link] | A docker image with libx11 installed, running as docker user (`DUID`). |
-| [![Version privileged][privileged-badge]][privileged-link] | [![Image privileged][privileged-image-badge]][privileged-link] | A docker image with libx11 installed, running with elevated permissions (root). |
 
 ## Components
 
@@ -80,7 +71,7 @@ You can view the [`build/README.md`](build/README.md) for more on using the `Mak
 The docker image follows the [Label Schema Convention](http://label-schema.org). Label Schema is a community project to provide a shared namespace for use by multiple tools, specifically `org.label-schema`. The values in the namespace can be accessed by the following command:
 
 ```bash
-docker inspect -f '{{ index .Config.Labels "org.label-schema.<LABEL>" }}' jrbeverly/xwindow
+docker inspect -f '{{ index .Config.Labels "org.label-schema.<LABEL>" }}' jrbeverly/optipng
 ```
 
 ### Label Extension
@@ -88,7 +79,7 @@ docker inspect -f '{{ index .Config.Labels "org.label-schema.<LABEL>" }}' jrbeve
 The label namespace `org.doc-schema` is an extension of `org.label-schema`. The namespace stores internal variables often used when interacting with the image. These variables will often be application versions or exposed internal variables. The values in the namespace can be accessed by the following command:
 
 ```bash
-docker inspect -f '{{ index .Config.Labels "org.doc-schema.<LABEL>" }}' jrbeverly/xwindow
+docker inspect -f '{{ index .Config.Labels "org.doc-schema.<LABEL>" }}' jrbeverly/optipng
 ```
 
 ## User and Group Mapping
@@ -98,8 +89,8 @@ All processes within the `baseimage` docker container will be run as the **docke
 Any permissions on the host operating system (OS) associated with either the user (`DUID`) or group (`DGID`) will be associated with the docker user. The values of `DUID` and `DGID` are visible in the [Build Arguments](#build-arguments), and can be accessed by the commands:
 
 ```bash
-docker inspect -f '{{ index .Config.Labels "org.doc-schema.user" }}' jrbeverly/xwindow:baseimage
-docker inspect -f '{{ index .Config.Labels "org.doc-schema.group" }}' jrbeverly/xwindow:baseimage
+docker inspect -f '{{ index .Config.Labels "org.doc-schema.user" }}' jrbeverly/optipng:baseimage
+docker inspect -f '{{ index .Config.Labels "org.doc-schema.group" }}' jrbeverly/optipng:baseimage
 ```
 
 The notation of the build variables is short form for docker user id (`DUID`) and docker group id (`DGID`).
